@@ -1,0 +1,9 @@
+[
+  { "id": 1, "name": "Apple iPhone 13", "price": 799.0 },
+  { "id": 2, "name": "Samsung Galaxy S21", "price": 699.0 },
+  { "id": 3, "name": "Google Pixel 6", "price": 599.0 },
+  { "id": 4, "name": "OnePlus 9", "price": 729.0 },
+  { "id": 5, "name": "Sony WH-1000XM4", "price": 349.0 },
+  { "id": 6, "name": "Apple MacBook Pro", "price": 1299.0 },
+  { "id": 7, "name": "Dell XPS 13", "price": 999.0 }
+]

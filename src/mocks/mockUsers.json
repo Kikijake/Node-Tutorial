@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "username": "john",
+    "displayName": "John Smith",
+    "password": "password123"
+  },
+  {
+    "id": 2,
+    "username": "jane",
+    "displayName": "Jane Doe",
+    "password": "secretpass"
+  },
+  {
+    "id": 3,
+    "username": "admin",
+    "displayName": "Admin User",
+    "password": "adminpass"
+  },
+  {
+    "id": 4,
+    "username": "fred",
+    "displayName": "Fredrik Olsson",
+    "password": "fredpass"
+  },
+  {
+    "id": 5,
+    "username": "bob",
+    "displayName": "Bob Person",
+    "password": "bobpass"
+  },
+  {
+    "id": 6,
+    "username": "joe",
+    "displayName": "Joe Doe",
+    "password": "joepass"
+  },
+  {
+    "id": 7,
+    "username": "mike",
+    "displayName": "Mike Johnson",
+    "password": "mikepass"
+  },
+  {
+    "id": 8,
+    "username": "sarah",
+    "displayName": "Sarah Taylor",
+    "password": "sarahpass"
+  }
+]
