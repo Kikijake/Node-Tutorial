@@ -7,38 +7,34 @@ import {
   updateUserValidationSchema,
   deleteUserValidationSchema,
 } from "../utils/validationSchemas.js";
-import {
-  validate,
-  resolveUserIndexById,
-} from "../utils/middlewares.js";
+import { validate, resolveUserIndexById } from "../utils/middlewares.js";
 import mockUsers from "../mocks/mockUsers.json" assert { type: "json" };
 import { responseSuccess, responseError } from "../utils/response.js";
+import User from "../mongoose/schemas/user.js";
+import { hashPassword } from "../utils/helpers.js";
 
 const router = Router();
 
-router.get(
-  "/api/users",
-  validate(getUsersValidationSchema),
-  (req, res) => {
-    const { name } = req.validated;
-    // req.sessionStore.get(req.sessionID, (err, session) => {
-    //   if (err) {
-    //     console.log(err);
-    //     throw err;
-    //   }
-    //   console.log(session);
-    // });
-    const filteredUsers = mockUsers.filter((user) => {
-      if (name?.length > 0) {
-        return user.username
-          .toLocaleLowerCase()
-          .includes(name.toLocaleLowerCase()) || user.displayName.toLocaleLowerCase().includes(name.toLocaleLowerCase());
-      }
-      return true;
-    });
-    return responseSuccess(res, filteredUsers, "Retrieve Users Successfully");
-  }
-);
+router.get("/api/users", validate(getUsersValidationSchema), (req, res) => {
+  const { name } = req.validated;
+  // req.sessionStore.get(req.sessionID, (err, session) => {
+  //   if (err) {
+  //     console.log(err);
+  //     throw err;
+  //   }
+  //   console.log(session);
+  // });
+  const filteredUsers = mockUsers.filter((user) => {
+    if (name?.length > 0) {
+      return (
+        user.username.toLocaleLowerCase().includes(name.toLocaleLowerCase()) ||
+        user.displayName.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+      );
+    }
+    return true;
+  });
+  return responseSuccess(res, filteredUsers, "Retrieve Users Successfully");
+});
 
 router.get(
   "/api/users/:id",
@@ -70,9 +66,22 @@ router.get(
 //   }
 // );
 
-router.post("/api/users", (req, res) => {
-  const { body } = req;
-});
+router.post(
+  "/api/users",
+  validate(createUserValidationSchema),
+  async (req, res) => {
+    const data = req.validated;
+    data.password = hashPassword(data.password);
+    console.log(data);
+    const newUser = new User(data);
+    try {
+      const savedUser = await newUser.save();
+      return responseSuccess(res, savedUser, "User created");
+    } catch (error) {
+      return responseError(res, error, 500);
+    }
+  }
+);
 
 router.put(
   "/api/users/:id",
@@ -84,11 +93,7 @@ router.put(
       id: mockUsers[findUserIndex].id,
       ...body,
     };
-    return responseSuccess(
-      res,
-      mockUsers[findUserIndex],
-      "User Updated"
-    );
+    return responseSuccess(res, mockUsers[findUserIndex], "User Updated");
   }
 );
 
@@ -103,11 +108,7 @@ router.patch(
       ...mockUsers[findUserIndex],
       ...body,
     };
-    return responseSuccess(
-      res,
-      mockUsers[findUserIndex],
-      "User Updated"
-    );
+    return responseSuccess(res, mockUsers[findUserIndex], "User Updated");
   }
 );
 

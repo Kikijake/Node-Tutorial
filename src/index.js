@@ -7,7 +7,7 @@ import session from "express-session";
 import mockUsers from "./mocks/mockUsers.json" assert { type: "json" };
 import { responseError, responseSuccess } from "./utils/response.js";
 import { validate } from "./utils/middlewares.js";
-import { loginValidationSchema } from "./utils/validationSchemas.js";
+// import { loginValidationSchema } from "./utils/validationSchemas.js";
 import passport from "passport";
 import mongoose from "mongoose";
 import "./strategies/local-strategy.js";
