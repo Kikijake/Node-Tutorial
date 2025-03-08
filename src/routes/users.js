@@ -17,13 +17,14 @@ const router = Router();
 
 router.get("/api/users", validate(getUsersValidationSchema), (req, res) => {
   const { name } = req.validated;
-  // req.sessionStore.get(req.sessionID, (err, session) => {
-  //   if (err) {
-  //     console.log(err);
-  //     throw err;
-  //   }
-  //   console.log(session);
-  // });
+  req.sessionStore.get(req.sessionID, (err, session) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("Inside Session Store Get");
+    console.log(session);
+  });
   const filteredUsers = mockUsers.filter((user) => {
     if (name?.length > 0) {
       return (
